@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Báo cáo tốt nghiệp: Phân tích hệ thống quản lý học vụ UMS (University Management System). Thiết kế kiến trúc Clean Architecture, ASP.NET Core, Vue 3, SQL Server.">
+    <meta name="keywords" content="UMS, University Management System, Clean Architecture, ASP.NET Core, Vue 3, Báo cáo tốt nghiệp, Quản lý học vụ">
+    <meta name="author" content="Nhóm phát triển UMS - 2025">
+    <title>UMS | University Management System - Báo Cáo Tốt Nghiệp</title>
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Background Decoration Bubbles -->
+    <div class="bg-bubble bubble-1"></div>
+    <div class="bg-bubble bubble-2"></div>
+    <div class="bg-bubble bubble-3"></div>
+    <div class="bg-bubble bubble-4"></div>
+
+    <!-- Header / Navigation -->
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>UMS<span class="highlight">.Edu</span></span>
+            </a>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#home" class="nav-link active">Trang chủ</a></li>
+                    <li><a href="#intro" class="nav-link">Giới thiệu</a></li>
+                    <li><a href="#architecture" class="nav-link">Kiến trúc</a></li>
+                    <li><a href="#erd" class="nav-link">ERD</a></li>
+                    <li><a href="#domain" class="nav-link">Domain</a></li>
+                    <li><a href="#backend" class="nav-link">Backend</a></li>
+                    <li><a href="#frontend" class="nav-link">Frontend</a></li>
+                    <li><a href="#scrum" class="nav-link">Scrum</a></li>
+                    <li><a href="#evaluation" class="nav-link">Đánh giá</a></li>
+                    <li><a href="#conclusion" class="nav-link">Kết luận</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-toggle">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section: Hero (Home) -->
+    <section id="home" class="hero-section">
+        <div class="container hero-container">
+            <div class="hero-content fade-in">
+                <div class="badge">
+                    <i class="fa-solid fa-award"></i> ĐỒ ÁN TỐT NGHIỆP XUẤT SẮC
+                </div>
+                <h1 class="hero-title">UNIVERSITY MANAGEMENT SYSTEM</h1>
+                <p class="hero-subtitle">Hệ thống phân tích và thiết kế phần mềm quản lý học vụ toàn diện dành cho các trường đại học hiện đại</p>
+                
+                <!-- Info Grid -->
+                <div class="hero-info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Môn học:</span>
+                        <span class="info-val">Đồ án Tốt Nghiệp Kỹ Thuật Phần Mềm</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Nhóm thực hiện:</span>
+                        <span class="info-val">UMS Development Group</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Giảng viên hướng dẫn:</span>
+                        <span class="info-val">TS. Nguyễn Văn A</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Năm thực hiện:</span>
+                        <span class="info-val">2025</span>
+                    </div>
+                </div>
+
+                <div class="hero-actions">
+                    <a href="#intro" class="btn btn-primary"><i class="fa-solid fa-file-invoice"></i> Xem báo cáo</a>
+                    <a href="#frontend" class="btn btn-secondary"><i class="fa-solid fa-cubes"></i> Khám phá hệ thống</a>
+                </div>
+            </div>
+            
+            <div class="hero-visual fade-in">
+                <!-- Visual Dashboard Component (Glassmorphism Mockup) -->
+                <div class="dashboard-mockup">
+                    <div class="mockup-header">
+                        <div class="mockup-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="mockup-search"><i class="fa-solid fa-lock"></i> https://ums.edu.vn/dashboard</div>
+                    </div>
+                    <div class="mockup-body">
+                        <div class="mockup-sidebar">
+                            <div class="sidebar-logo"><i class="fa-solid fa-graduation-cap"></i> UMS</div>
+                            <div class="sidebar-item active"><i class="fa-solid fa-chart-line"></i> Dashboard</div>
+                            <div class="sidebar-item"><i class="fa-solid fa-user-graduate"></i> Sinh viên</div>
+                            <div class="sidebar-item"><i class="fa-solid fa-chalkboard-teacher"></i> Giảng viên</div>
+                            <div class="sidebar-item"><i class="fa-solid fa-book"></i> Môn học</div>
+                            <div class="sidebar-item"><i class="fa-solid fa-calendar-days"></i> Lịch học</div>
+                        </div>
+                        <div class="mockup-main">
+                            <div class="main-top">
+                                <h3>Tổng quan học vụ</h3>
+                                <span class="date-badge"><i class="fa-solid fa-calendar"></i> Học kỳ I - 2025</span>
+                            </div>
+                            <div class="stats-mini-grid">
+                                <div class="mini-card">
+                                    <span class="mini-title">Sinh viên</span>
+                                    <span class="mini-value">12,450</span>
+                                </div>
+                                <div class="mini-card">
+                                    <span class="mini-title">Giảng viên</span>
+                                    <span class="mini-value">450</span>
+                                </div>
+                                <div class="mini-card">
+                                    <span class="mini-title">Môn học</span>
+                                    <span class="mini-value">180</span>
+                                </div>
+                            </div>
+                            <div class="chart-placeholder">
+                                <div class="chart-bar-container">
+                                    <div class="chart-bar" style="height: 60%"></div>
+                                    <div class="chart-bar" style="height: 85%"></div>
+                                    <div class="chart-bar" style="height: 45%"></div>
+                                    <div class="chart-bar" style="height: 95%"></div>
+                                    <div class="chart-bar" style="height: 70%"></div>
+                                </div>
+                                <p class="chart-desc">Thống kê điểm số trung bình qua các năm học</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 1: Giới thiệu (Intro) -->
+    <section id="intro" class="section-padding">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="subtitle">SECTION 01</span>
+                <h2 class="title">Giới Thiệu Đề Tài</h2>
+                <div class="title-underline"></div>
+            </div>
+            
+            <div class="intro-grid">
+                <!-- Card 1: Lý do chọn đề tài -->
+                <div class="glass-card intro-card fade-in">
+                    <div class="card-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                    <h3>Lý do chọn đề tài</h3>
+                    <p>Hệ thống giáo dục đại học ngày càng mở rộng quy mô đào tạo, đòi hỏi quy trình quản lý học vụ phức tạp hơn. Việc vận hành thủ công gây lãng phí nguồn lực và dễ xảy ra sai sót. Do đó, việc xây dựng một hệ thống tích hợp số hóa quản lý học vụ (UMS) là cấp thiết nhằm nâng cao hiệu quả vận hành và chuyển đổi số trường học.</p>
+                </div>
+                <!-- Card 2: Giới thiệu UMS -->
+                <div class="glass-card intro-card fade-in">
+                    <div class="card-icon"><i class="fa-solid fa-circle-info"></i></div>
+                    <h3>Giới thiệu UMS</h3>
+                    <p>UMS (University Management System) là giải pháp phần mềm quản lý học vụ tập trung. Hệ thống giúp số hóa toàn diện từ hồ sơ sinh viên, thông tin giảng viên, quản lý chương trình đào tạo, đăng ký môn học trực tuyến, thời khóa biểu cho đến quá trình chấm điểm, đánh giá năng lực học tập một cách minh bạch.</p>
+                </div>
+                <!-- Card 3: Mục tiêu đề tài -->
+                <div class="glass-card intro-card fade-in">
+                    <div class="card-icon"><i class="fa-solid fa-bullseye"></i></div>
+                    <h3>Mục tiêu dự án</h3>
+                    <p>Phân tích, thiết kế và phát triển một hệ thống quản lý học vụ có kiến trúc rõ ràng, tính bảo mật cao, khả năng mở rộng tốt. Đảm bảo giao diện người dùng trực quan, đáp ứng đầy đủ nhu cầu của 4 đối tượng tương tác: Quản trị viên (Admin), Giáo vụ (Staff), Giảng viên (Teacher) và Sinh viên (Student).</p>
+                </div>
+                <!-- Card 4: Phạm vi đề tài -->
+                <div class="glass-card intro-card fade-in">
+                    <div class="card-icon"><i class="fa-solid fa-arrows-to-eye"></i></div>
+                    <h3>Phạm vi nghiên cứu</h3>
+                    <p>Tập trung nghiên cứu và chuẩn hóa các quy trình cốt lõi trong một cơ sở giáo dục đại học: Quản lý thông tin tài khoản và phân quyền, quản lý khóa học và lớp học phần, đăng ký môn học tự chọn, xếp lịch giảng dạy, kiểm soát điểm danh chuyên cần và tự động tính toán điểm số trung bình tích lũy.</p>
+                </div>
+                <!-- Card 5: Đối tượng & Phương pháp -->
+                <div class="glass-card intro-card fade-in">
+                    <div class="card-icon"><i class="fa-solid fa-microscope"></i></div>
+                    <h3>Đối tượng & Phương pháp</h3>
+                    <p><strong>Đối tượng:</strong> Quy trình nghiệp vụ học vụ và cấu trúc dữ liệu đào tạo đại học. <br><strong>Phương pháp:</strong> Phân tích thiết kế hệ thống theo hướng đối tượng (OOAD), áp dụng mô hình Scrum phát triển nhanh, sử dụng kiến trúc Clean Architecture để phân tách các tầng logic nghiệp vụ.</p>
+                </div>
+                <!-- Card 6: Nội dung báo cáo -->
+                <div class="glass-card intro-card fade-in">
+                    <div class="card-icon"><i class="fa-solid fa-book-open"></i></div>
+                    <h3>Cấu trúc báo cáo</h3>
+                    <p>Báo cáo gồm 12 chương chính đi từ giới thiệu tổng quan, làm rõ lý do chọn đề tài, khảo sát công nghệ, phân tích kiến trúc hệ thống, chi tiết cơ sở dữ liệu ERD, xây dựng các Entity Domain, luồng xử lý Application Use Cases, thiết kế tài liệu API RESTful, xây dựng UI/UX Frontend, quy trình Scrum và tổng kết đánh giá.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Tổng quan công nghệ (Tech Stack) -->
+    <section id="tech-stack" class="section-padding section-alt">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="subtitle">SECTION 02</span>
+                <h2 class="title">Tổng Quan Công Nghệ</h2>
+                <div class="title-underline"></div>
+            </div>
+
+            <div class="tech-container">
+                <!-- Backend Stack -->
+                <div class="tech-box backend-box fade-in">
+                    <div class="tech-header">
+                        <i class="fa-solid fa-server"></i>
+                        <h3>Hệ thống Backend (ASP.NET Core)</h3>
+                    </div>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <i class="fa-brands fa-microsoft"></i>
+                            <div class="tech-info">
+                                <h4>ASP.NET Core</h4>
+                                <p>Framework hiệu năng cao để xây dựng RESTful APIs</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fa-solid fa-layer-group"></i>
+                            <div class="tech-info">
+                                <h4>Clean Architecture</h4>
+                                <p>Kiến trúc tách biệt tầng nghiệp vụ giúp dễ kiểm thử</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <div class="tech-info">
+                                <h4>JWT & Role Auth</h4>
+                                <p>Bảo mật Token-based phân quyền đa vai trò nghiêm ngặt</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fa-solid fa-database"></i>
+                            <div class="tech-info">
+                                <h4>MS SQL Server & EF Core</h4>
+                                <p>Hệ quản trị CSDL quan hệ kết hợp ORM mạnh mẽ</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fa-solid fa-vial-circle-check"></i>
+                            <div class="tech-info">
+                                <h4>Fluent Validation</h4>
+                                <p>Kiểm tra tính hợp lệ dữ liệu đầu vào phía Server</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fa-solid fa-diagram-project"></i>
+                            <div class="tech-info">
+                                <h4>Repository & UoW</h4>
+                                <p>Mẫu thiết kế tối ưu hóa kết nối và giao dịch CSDL</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fa-solid fa-shuffle"></i>
+                            <div class="tech-info">
+                                <h4>CQRS Pattern</h4>
+                                <p>Tách biệt luồng Đọc (Query) và Ghi (Command) dữ liệu</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frontend Stack -->
+                <div class="tech-box frontend-box fade-in">
+                    <div class="tech-header">
+                        <i class="fa-solid fa-laptop-code"></i>
+                        <h3>Giao diện Frontend (Vue 3 Stack)</h3>
+                    </div>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <i class="fa-brands fa-vuejs"></i>
+                            <div class="tech-info">
+                                <h4>Vue 3 (Composition API)</h4>
+                                <p>Lập trình UI phản xạ nhanh, đóng gói component tốt</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fa-solid fa-network-wired"></i>
+                            <div class="tech-info">
+                                <h4>Pinia State Management</h4>
+                                <p>Quản lý trạng thái ứng dụng tập trung, bảo mật</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fa-solid fa-cloud-arrow-down"></i>
+                            <div class="tech-info">
+                                <h4>Axios HTTP Client</h4>
+                                <p>Gọi API bất đồng bộ với cơ chế Interceptor xử lý lỗi</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fa-solid fa-route"></i>
+                            <div class="tech-info">
+                                <h4>Vue Router</h4>
+                                <p>Định tuyến trang Single Page Application mượt mà</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <div class="tech-info">
+                                <h4>Modern CSS Glassmorphism</h4>
+                                <p>Ngôn ngữ thiết kế giao diện bán trong suốt thời thượng</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Kiến trúc Clean Architecture -->
+    <section id="architecture" class="section-padding">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="subtitle">SECTION 03</span>
+                <h2 class="title">Kiến Trúc Clean Architecture</h2>
+                <div class="title-underline"></div>
+            </div>
+
+            <div class="arch-container">
+                <!-- CSS Interactive Diagram -->
+                <div class="arch-diagram fade-in">
+                    <div class="arch-layer layer-api" data-desc="Tầng API: Chứa các Controller, Endpoint, các cấu hình Middleware, JWT Authentication, Global Exception Handling. Trực tiếp nhận Request và trả về Response cho Client.">
+                        <div class="layer-header">
+                            <span class="layer-badge">TẦNG 1</span>
+                            <h4>API Presentation Layer</h4>
+                        </div>
+                        <div class="layer-body">
+                            <span>Controllers</span> • <span>Middlewares</span> • <span>DTOs</span>
+                        </div>
+                    </div>
+                    
+                    <div class="arch-arrow"><i class="fa-solid fa-arrow-down-long"></i> Phụ thuộc vào</div>
+
+                    <div class="arch-layer layer-app" data-desc="Tầng Application: Chứa logic nghiệp vụ cốt lõi của ứng dụng (Use Cases), Commands/Queries cho CQRS, Validators, Mapping Profiles. Hoàn toàn độc lập với công nghệ cơ sở dữ liệu hay giao diện.">
+                        <div class="layer-header">
+                            <span class="layer-badge">TẦNG 2</span>
+                            <h4>Application Core Layer</h4>
+                        </div>
+                        <div class="layer-body">
+                            <span>Use Cases</span> • <span>CQRS Handlers</span> • <span>Validators</span>
+                        </div>
+                    </div>
+
+                    <div class="arch-arrow"><i class="fa-solid fa-arrow-down-long"></i> Phụ thuộc vào</div>
+
+                    <div class="arch-layer layer-domain" data-desc="Tầng Domain: Trọng tâm của hệ thống, chứa các Entity nguyên bản, Value Objects, Domain Exceptions, và các hợp đồng Interfaces của các dịch vụ. Không phụ thuộc bất cứ thư viện bên ngoài nào.">
+                        <div class="layer-header">
+                            <span class="layer-badge">TẦNG 3</span>
+                            <h4>Domain Logic Layer</h4>
+                        </div>
+                        <div class="layer-body">
+                            <span>Entities</span> • <span>Value Objects</span> • <span>Interfaces</span>
+                        </div>
+                    </div>
+
+                    <div class="arch-arrow"><i class="fa-solid fa-arrow-up-long"></i> Thực thi Interfaces của Domain</div>
+
+                    <div class="arch-layer layer-infra" data-desc="Tầng Infrastructure: Chứa các chi tiết triển khai công nghệ bên ngoài như Entity Framework Core DbContext, thiết lập kết nối SQL Server, lưu trữ tập tin, dịch vụ gửi Mail.">
+                        <div class="layer-header">
+                            <span class="layer-badge">TẦNG 4</span>
+                            <h4>Infrastructure Layer</h4>
+                        </div>
+                        <div class="layer-body">
+                            <span>SQL Context</span> • <span>Repositories implementation</span> • <span>External Services</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detail description box -->
+                <div class="arch-info-box glass-card fade-in">
+                    <h3>Nguyên tắc phụ thuộc một chiều (Dependency Rule)</h3>
+                    <p class="intro-desc">Di chuyển chuột hoặc chạm vào các tầng kiến trúc bên trái để xem mô tả chi tiết nhiệm vụ của từng phân lớp.</p>
+                    <div id="arch-detail-content" class="detail-display">
+                        <p class="placeholder-text"><i class="fa-solid fa-circle-info"></i> Hãy chọn một tầng kiến trúc để xem phân tích chi tiết luồng nghiệp vụ.</p>
+                    </div>
+                    <div class="arch-benefits">
+                        <div class="benefit-item">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <div>
+                                <h5>Khả năng Test độc lập (Testability)</h5>
+                                <p>Có thể viết Unit Test cho Core Logic (Domain & Application) mà không cần chạy CSDL hay Server.</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fa-solid fa-code-fork"></i>
+                            <div>
+                                <h5>Độc lập cơ sở dữ liệu</h5>
+                                <p>Dễ dàng thay đổi từ SQL Server sang PostgreSQL hay MongoDB nhờ cấu trúc Repository Interface ở Domain.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Sơ đồ ERD -->
+    <section id="erd" class="section-padding section-alt">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="subtitle">SECTION 04</span>
+                <h2 class="title">Sơ Đồ Thực Thể Quan Hệ (ERD)</h2>
+                <div class="title-underline"></div>
+            </div>
+
+            <!-- ERD Diagram Image Box -->
+            <div class="erd-diagram-wrapper fade-in">
+                <div class="erd-mockup-frame glass-card">
+                    <div class="mockup-header">
+                        <span class="mockup-title"><i class="fa-solid fa-sitemap"></i> UMS ERD Relational Database Schema</span>
+                        <span class="zoom-badge"><i class="fa-solid fa-magnifying-glass-plus"></i> Xem kích thước đầy đủ</span>
+                    </div>
+                    <div class="mockup-img-container">
+                        <!-- Simulated Database Schema Layout using rich SVG and CSS to ensure visually stunning appearance -->
+                        <div class="db-schema-visual">
+                            <div class="schema-node table-accounts">
+                                <div class="node-header"><i class="fa-solid fa-table"></i> Accounts</div>
+                                <div class="node-fields">
+                                    <div class="field pk"><span>Id</span> (GUID)</div>
+                                    <div class="field"><span>Username</span> (string)</div>
+                                    <div class="field"><span>PasswordHash</span> (string)</div>
+                                    <div class="field"><span>Role</span> (int)</div>
+                                </div>
+                            </div>
+                            <div class="schema-connection c1"></div>
+                            <div class="schema-node table-students">
+                                <div class="node-header"><i class="fa-solid fa-table"></i> Students</div>
+                                <div class="node-fields">
+                                    <div class="field pk"><span>Id</span> (GUID)</div>
+                                    <div class="field fk"><span>AccountId</span> (FK)</div>
+                                    <div class="field"><span>StudentCode</span> (string)</div>
+                                    <div class="field"><span>FullName</span> (string)</div>
+                                    <div class="field"><span>BirthDate</span> (datetime)</div>
+                                </div>
+                            </div>
+                            <div class="schema-connection c2"></div>
+                            <div class="schema-node table-enrollments">
+                                <div class="node-header"><i class="fa-solid fa-table"></i> Enrollments</div>
+                                <div class="node-fields">
+                                    <div class="field pk"><span>Id</span> (GUID)</div>
+                                    <div class="field fk"><span>StudentId</span> (FK)</div>
+                                    <div class="field fk"><span>ClassId</span> (FK)</div>
+                                    <div class="field"><span>EnrollDate</span> (datetime)</div>
+                                </div>
+                            </div>
+                            <div class="schema-center-text">
+                                <span>UMS ERD Schema (Trực quan hóa quan hệ thực thể)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Description of 9 tables -->
+            <div class="erd-tables-grid">
+                <!-- 1. Accounts -->
+                <div class="glass-card table-card fade-in">
+                    <div class="table-card-header">
+                        <i class="fa-solid fa-key"></i>
+                        <h4>1. Table Accounts</h4>
+                    </div>
+                    <p class="table-desc">Lưu trữ thông tin xác thực đăng nhập của tất cả đối tượng trong hệ thống.</p>
+                    <ul class="table-fields-list">
+                        <li><strong>Id (PK):</strong> GUID - Định danh duy nhất</li>
+                        <li><strong>Username:</strong> VARCHAR(50) - Tên đăng nhập</li>
+                        <li><strong>PasswordHash:</strong> VARCHAR(MAX) - Mật khẩu mã hóa</li>
+                        <li><strong>Role:</strong> INT - Vai trò (Admin/Staff/Teacher/Student)</li>
+                    </ul>
+                </div>
+                <!-- 2. Students -->
+                <div class="glass-card table-card fade-in">
+                    <div class="table-card-header">
+                        <i class="fa-solid fa-user-graduate"></i>
+                        <h4>2. Table Students</h4>
+                    </div>
+                    <p class="table-desc">Lưu thông tin cá nhân và học bạ của sinh viên theo học tại trường.</p>
+                    <ul class="table-fields-list">
+                        <li><strong>Id (PK):</strong> GUID - Định danh sinh viên</li>
+                        <li><strong>AccountId (FK):</strong> GUID - Tài khoản tương ứng</li>
+                        <li><strong>StudentCode:</strong> VARCHAR(20) - Mã số sinh viên</li>
+                        <li><strong>ClassId (FK):</strong> GUID - Lớp sinh hoạt</li>
+                    </ul>
+                </div>
+                <!-- 3. Teachers -->
+                <div class="glass-card table-card fade-in">
+                    <div class="table-card-header">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                        <h4>3. Table Teachers</h4>
+                    </div>
+                    <p class="table-desc">Quản lý hồ sơ giảng viên, học hàm học vị, chuyên môn khoa trực thuộc.</p>
+                    <ul class="table-fields-list">
+                        <li><strong>Id (PK):</strong> GUID - Định danh giảng viên</li>
+                        <li><strong>AccountId (FK):</strong> GUID - Liên kết Accounts</li>
+                        <li><strong>TeacherCode:</strong> VARCHAR(20) - Mã giảng viên</li>
+                        <li><strong>Department:</strong> NVARCHAR(100) - Khoa công tác</li>
+                    </ul>
+                </div>
+                <!-- 4. Staffs -->
+                <div class="glass-card table-card fade-in">
+                    <div class="table-card-header">
+                        <i class="fa-solid fa-user-tie"></i>
+                        <h4>4. Table Staffs</h4>
+                    </div>
+                    <p class="table-desc">Lưu trữ thông tin nhân sự phòng giáo vụ chịu trách nhiệm vận hành hệ thống.</p>
+                    <ul class="table-fields-list">
+                        <li><strong>Id (PK):</strong> GUID - Định danh nhân viên</li>
+                        <li><strong>AccountId (FK):</strong> GUID - Liên kết Accounts</li>
+                        <li><strong>StaffCode:</strong> VARCHAR(20) - Mã nhân vụ</li>
+                        <li><strong>Position:</strong> NVARCHAR(50) - Chức vụ</li>
+                    </ul>
+                </div>
+                <!-- 5. Subjects -->
+                <div class="glass-card table-card fade-in">
+                    <div class="table-card-header">
+                        <i class="fa-solid fa-book"></i>
+                        <h4>5. Table Subjects</h4>
+                    </div>
+                    <p class="table-desc">Danh mục các môn học thuộc chương trình đào tạo của nhà trường.</p>
+                    <ul class="table-fields-list">
+                        <li><strong>Id (PK):</strong> GUID - Định danh môn học</li>
+                        <li><strong>SubjectCode:</strong> VARCHAR(15) - Mã môn học</li>
+                        <li><strong>Name:</strong> NVARCHAR(100) - Tên môn học</li>
+                        <li><strong>Credits:</strong> INT - Số tín chỉ tích lũy (2, 3, 4)</li>
+                    </ul>
+                </div>
+                <!-- 6. Classes -->
+                <div class="glass-card table-card fade-in">
+                    <div class="table-card-header">
+                        <i class="fa-solid fa-school"></i>
+                        <h4>6. Table Classes</h4>
+                    </div>
+                    <p class="table-desc">Quản lý các lớp học phần được mở theo từng học kỳ để sinh viên đăng ký.</p>
+                    <ul class="table-fields-list">
+                        <li><strong>Id (PK):</strong> GUID - Định danh lớp học phần</li>
+                        <li><strong>ClassCode:</strong> VARCHAR(20) - Mã lớp học phần</li>
+                        <li><strong>SubjectId (FK):</strong> GUID - Môn học giảng dạy</li>
+                        <li><strong>TeacherId (FK):</strong> GUID - Giảng viên phụ trách</li>
+                    </ul>
+                </div>
+                <!-- 7. Schedules -->
+                <div class="glass-card table-card fade-in">
+                    <div class="table-card-header">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <h4>7. Table Schedules</h4>
+                    </div>
+                    <p class="table-desc">Lịch học chi tiết của từng lớp bao gồm thứ, ca học, phòng học cụ thể.</p>
+                    <ul class="table-fields-list">
+                        <li><strong>Id (PK):</strong> GUID - Định danh lịch học</li>
+                        <li><strong>ClassId (FK):</strong> GUID - Liên kết lớp học phần</li>
+                        <li><strong>DayOfWeek:</strong> INT - Thứ trong tuần (2 - 7, CN)</li>
+                        <li><strong>Slot:</strong> INT - Ca học (1, 2, 3, 4)</li>
+                    </ul>
+                </div>
+                <!-- 8. Enrollments -->
+                <div class="glass-card table-card fade-in">
+                    <div class="table-card-header">
+                        <i class="fa-solid fa-file-signature"></i>
+                        <h4>8. Table Enrollments</h4>
+                    </div>
+                    <p class="table-desc">Bảng trung gian lưu kết quả đăng ký lớp học phần của từng sinh viên.</p>
+                    <ul class="table-fields-list">
+                        <li><strong>Id (PK):</strong> GUID - Định danh đăng ký</li>
+                        <li><strong>StudentId (FK):</strong> GUID - Sinh viên đăng ký</li>
+                        <li><strong>ClassId (FK):</strong> GUID - Lớp học phần</li>
+                        <li><strong>EnrollDate:</strong> DATETIME - Thời điểm đăng ký</li>
+                    </ul>
+                </div>
+                <!-- 9. Attendance & Grades -->
+                <div class="glass-card table-card fade-in">
+                    <div class="table-card-header">
+                        <i class="fa-solid fa-clipboard-user"></i>
+                        <h4>9. Attendance & Grades</h4>
+                    </div>
+                    <p class="table-desc">Lưu vết điểm danh từng buổi học và điểm số thành phần (chuyên cần, giữa kỳ, cuối kỳ).</p>
+                    <ul class="table-fields-list">
+                        <li><strong>Attendance:</strong> Điểm danh (StudentId, ScheduleId, Status)</li>
+                        <li><strong>Grades:</strong> Bảng điểm (StudentId, SubjectId, ProgressScore, MidtermScore, FinalScore)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Domain Entities -->
+    <section id="domain" class="section-padding">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="subtitle">SECTION 05</span>
+                <h2 class="title">Mô Hình Domain Entities</h2>
+                <div class="title-underline"></div>
+            </div>
+
+            <div class="domain-grid">
+                <!-- Account Entity -->
+                <div class="glass-card domain-card fade-in">
+                    <div class="domain-icon"><i class="fa-solid fa-user-shield"></i></div>
+                    <h3>Account</h3>
+                    <div class="domain-meta">
+                        <span class="meta-title">Thuộc tính chính:</span>
+                        <code>Id (GUID)</code>, <code>Username</code>, <code>PasswordHash</code>, <code>Role</code>, <code>IsActive</code>
+                    </div>
+                    <div class="domain-actions">
+                        <span class="meta-title">Chức năng:</span>
+                        <p>Xác thực người dùng, đổi mật khẩu, kích hoạt/khóa tài khoản, kiểm tra quyền truy cập hệ thống.</p>
+                    </div>
+                </div>
+
+                <!-- Student Entity -->
+                <div class="glass-card domain-card fade-in">
+                    <div class="domain-icon"><i class="fa-solid fa-user-graduate"></i></div>
+                    <h3>Student</h3>
+                    <div class="domain-meta">
+                        <span class="meta-title">Thuộc tính chính:</span>
+                        <code>Id (GUID)</code>, <code>StudentCode</code>, <code>FullName</code>, <code>Gender</code>, <code>Email</code>
+                    </div>
+                    <div class="domain-actions">
+                        <span class="meta-title">Chức năng:</span>
+                        <p>Cập nhật hồ sơ cá nhân, truy vấn lịch học cá nhân, thực hiện đăng ký môn học trực tuyến, xem bảng điểm.</p>
+                    </div>
+                </div>
+
+                <!-- Teacher Entity -->
+                <div class="glass-card domain-card fade-in">
+                    <div class="domain-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+                    <h3>Teacher</h3>
+                    <div class="domain-meta">
+                        <span class="meta-title">Thuộc tính chính:</span>
+                        <code>Id (GUID)</code>, <code>TeacherCode</code>, <code>FullName</code>, <code>AcademicRank</code>, <code>Phone</code>
+                    </div>
+                    <div class="domain-actions">
+                        <span class="meta-title">Chức năng:</span>
+                        <p>Quản lý lịch giảng dạy cá nhân, thực hiện điểm danh sinh viên trong lớp học phần, chấm và nhập điểm thi.</p>
+                    </div>
+                </div>
+
+                <!-- Staff Entity -->
+                <div class="glass-card domain-card fade-in">
+                    <div class="domain-icon"><i class="fa-solid fa-user-tie"></i></div>
+                    <h3>Staff</h3>
+                    <div class="domain-meta">
+                        <span class="meta-title">Thuộc tính chính:</span>
+                        <code>Id (GUID)</code>, <code>StaffCode</code>, <code>FullName</code>, <code>Department</code>, <code>Status</code>
+                    </div>
+                    <div class="domain-actions">
+                        <span class="meta-title">Chức năng:</span>
+                        <p>Tạo mới chương trình học, xếp lịch học học kỳ, duyệt danh sách sinh viên, xử lý các sự cố học vụ.</p>
+                    </div>
+                </div>
+
+                <!-- Subject Entity -->
+                <div class="glass-card domain-card fade-in">
+                    <div class="domain-icon"><i class="fa-solid fa-book"></i></div>
+                    <h3>Subject</h3>
+                    <div class="domain-meta">
+                        <span class="meta-title">Thuộc tính chính:</span>
+                        <code>Id (GUID)</code>, <code>SubjectCode</code>, <code>Name</code>, <code>Credits</code>, <code>Description</code>
+                    </div>
+                    <div class="domain-actions">
+                        <span class="meta-title">Chức năng:</span>
+                        <p>Quản lý thông tin đề cương chi tiết môn học, quy định số lượng tín chỉ, thiết lập điều kiện môn tiên quyết.</p>
+                    </div>
+                </div>
+
+                <!-- Class Entity -->
+                <div class="glass-card domain-card fade-in">
+                    <div class="domain-icon"><i class="fa-solid fa-people-roof"></i></div>
+                    <h3>Class (Lớp học phần)</h3>
+                    <div class="domain-meta">
+                        <span class="meta-title">Thuộc tính chính:</span>
+                        <code>Id (GUID)</code>, <code>ClassCode</code>, <code>SubjectId</code>, <code>TeacherId</code>, <code>MaxStudents</code>
+                    </div>
+                    <div class="domain-actions">
+                        <span class="meta-title">Chức năng:</span>
+                        <p>Kiểm soát số lượng sinh viên đăng ký tối đa, kiểm tra trạng thái lớp (đang mở/đã đóng/đã hủy).</p>
+                    </div>
+                </div>
+
+                <!-- Schedule Entity -->
+                <div class="glass-card domain-card fade-in">
+                    <div class="domain-icon"><i class="fa-solid fa-clock"></i></div>
+                    <h3>Schedule</h3>
+                    <div class="domain-meta">
+                        <span class="meta-title">Thuộc tính chính:</span>
+                        <code>Id (GUID)</code>, <code>ClassId</code>, <code>DayOfWeek</code>, <code>StartSlot</code>, <code>RoomName</code>
+                    </div>
+                    <div class="domain-actions">
+                        <span class="meta-title">Chức năng:</span>
+                        <p>Xếp lịch học, tự động kiểm tra trùng lịch phòng học và lịch dạy của giảng viên trong cùng thời điểm.</p>
+                    </div>
+                </div>
+
+                <!-- Enrollment Entity -->
+                <div class="glass-card domain-card fade-in">
+                    <div class="domain-icon"><i class="fa-solid fa-file-invoice"></i></div>
+                    <h3>Enrollment</h3>
+                    <div class="domain-meta">
+                        <span class="meta-title">Thuộc tính chính:</span>
+                        <code>Id (GUID)</code>, <code>StudentId</code>, <code>ClassId</code>, <code>EnrollDate</code>, <code>Status</code>
+                    </div>
+                    <div class="domain-actions">
+                        <span class="meta-title">Chức năng:</span>
+                        <p>Ghi nhận giao dịch đăng ký học phần, xác nhận đóng học phí, hủy đăng ký theo quy định thời gian.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Application Use Cases -->
+    <section id="application" class="section-padding section-alt">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="subtitle">SECTION 06</span>
+                <h2 class="title">Application Use Case Flow</h2>
+                <div class="title-underline"></div>
+            </div>
+
+            <div class="usecase-flow-container fade-in">
+                <!-- Use Case: Auth Flow -->
+                <div class="flow-block">
+                    <div class="flow-header"><i class="fa-solid fa-lock"></i> 1. Authentication Flow</div>
+                    <div class="flow-steps">
+                        <div class="step-card">
+                            <span class="step-num">01</span>
+                            <h5>Client Login Request</h5>
+                            <p>Gửi Username/Password từ Form đăng nhập.</p>
+                        </div>
+                        <div class="step-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                        <div class="step-card">
+                            <span class="step-num">02</span>
+                            <h5>Server Validation</h5>
+                            <p>Fluent Validation xác thực định dạng dữ liệu đầu vào.</p>
+                        </div>
+                        <div class="step-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                        <div class="step-card">
+                            <span class="step-num">03</span>
+                            <h5>Database Authentication</h5>
+                            <p>Truy vấn tìm tài khoản & so khớp mã băm Password.</p>
+                        </div>
+                        <div class="step-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                        <div class="step-card">
+                            <span class="step-num">04</span>
+                            <h5>Issue JWT Token</h5>
+                            <p>Ký số bảo mật JWT Token chứa Claims vai trò (Roles).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Use Case: Class Enrollment Flow -->
+                <div class="flow-block">
+                    <div class="flow-header"><i class="fa-solid fa-check-double"></i> 2. Course Enrollment Flow</div>
+                    <div class="flow-steps">
+                        <div class="step-card">
+                            <span class="step-num">01</span>
+                            <h5>Select Course</h5>
+                            <p>Sinh viên chọn lớp học phần còn chỗ trống.</p>
+                        </div>
+                        <div class="step-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                        <div class="step-card">
+                            <span class="step-num">02</span>
+                            <h5>Conflict Check</h5>
+                            <p>Kiểm tra trùng lịch học hiện tại trong học kỳ.</p>
+                        </div>
+                        <div class="step-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                        <div class="step-card">
+                            <span class="step-num">03</span>
+                            <h5>Create Enrollment</h5>
+                            <p>Chạy transaction Unit Of Work ghi nhận đăng ký.</p>
+                        </div>
+                        <div class="step-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                        <div class="step-card">
+                            <span class="step-num">04</span>
+                            <h5>Update Class Count</h5>
+                            <p>Cập nhật sĩ số lớp học phần thời gian thực.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Use Case: Grade Submission Flow -->
+                <div class="flow-block">
+                    <div class="flow-header"><i class="fa-solid fa-marker"></i> 3. Grade Submission Flow</div>
+                    <div class="flow-steps">
+                        <div class="step-card">
+                            <span class="step-num">01</span>
+                            <h5>Enter Grades</h5>
+                            <p>Giảng viên nhập bảng điểm trên Web Dashboard.</p>
+                        </div>
+                        <div class="step-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                        <div class="step-card">
+                            <span class="step-num">02</span>
+                            <h5>Verify Authority</h5>
+                            <p>Hệ thống đối chiếu quyền sở hữu lớp của giảng viên.</p>
+                        </div>
+                        <div class="step-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                        <div class="step-card">
+                            <span class="step-num">03</span>
+                            <h5>Calculate Averages</h5>
+                            <p>Domain logic tính điểm trung bình (GPA) tự động.</p>
+                        </div>
+                        <div class="step-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                        <div class="step-card">
+                            <span class="step-num">04</span>
+                            <h5>Publish Grades</h5>
+                            <p>Lưu trữ cơ sở dữ liệu và thông báo kết quả cho Sinh viên.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 7: API Dashboard -->
+    <section id="backend" class="section-padding">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="subtitle">SECTION 07</span>
+                <h2 class="title">Backend API Performance Dashboard</h2>
+                <div class="title-underline"></div>
+            </div>
+
+            <!-- API Stats Panel -->
+            <div class="api-dashboard-grid">
+                <div class="glass-card api-stat-card fade-in">
+                    <div class="stat-icon"><i class="fa-solid fa-circle-nodes"></i></div>
+                    <div class="stat-content">
+                        <h3>39 Endpoints</h3>
+                        <p>Các tài nguyên được cung cấp theo chuẩn RESTful API phục vụ đầy đủ ứng dụng Client.</p>
+                    </div>
+                </div>
+                <div class="glass-card api-stat-card fade-in">
+                    <div class="stat-icon"><i class="fa-solid fa-gears"></i></div>
+                    <div class="stat-content">
+                        <h3>4 Controllers</h3>
+                        <p>Phân chia hợp lý: AuthController, StudentsController, TeachersController, StaffsController.</p>
+                    </div>
+                </div>
+                <div class="glass-card api-stat-card fade-in">
+                    <div class="stat-icon"><i class="fa-solid fa-key"></i></div>
+                    <div class="stat-content">
+                        <h3>JWT Authentication</h3>
+                        <p>Xác thực Token bảo mật cao, đính kèm trong Header của mọi Request cần quyền truy cập.</p>
+                    </div>
+                </div>
+                <div class="glass-card api-stat-card fade-in">
+                    <div class="stat-icon"><i class="fa-solid fa-user-lock"></i></div>
+                    <div class="stat-content">
+                        <h3>Role Authorization</h3>
+                        <p>Chính sách phân quyền linh hoạt dựa trên Role, phân tách chính xác tài nguyên giữa các Client.</p>
+                    </div>
+                </div>
+                <div class="glass-card api-stat-card fade-in">
+                    <div class="stat-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    <div class="stat-content">
+                        <h3>Global Exception Handler</h3>
+                        <p>Middleware bắt tất cả lỗi runtime của Server và chuyển hóa thành cấu trúc JSON ApiResponse đồng nhất.</p>
+                    </div>
+                </div>
+                <div class="glass-card api-stat-card fade-in">
+                    <div class="stat-icon"><i class="fa-solid fa-reply-all"></i></div>
+                    <div class="stat-content">
+                        <h3>Standard API Response</h3>
+                        <p>Định dạng dữ liệu trả về thống nhất: <code>{ Success: bool, Data: object, Message: string, Errors: [] }</code></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API Endpoint Preview -->
+            <div class="api-preview-box glass-card fade-in">
+                <div class="box-header">
+                    <h4><i class="fa-solid fa-terminal"></i> Danh sách API chính (Endpoints Preview)</h4>
+                    <span class="preview-lang">HTTP RESTful</span>
+                </div>
+                <div class="api-table-wrapper">
+                    <table class="api-table">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Endpoint URI</th>
+                                <th>Quyền truy cập</th>
+                                <th>Chức năng nghiệp vụ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="method post">POST</span></td>
+                                <td><code>/api/auth/login</code></td>
+                                <td>Public</td>
+                                <td>Đăng nhập hệ thống, trả về Token JWT và thông tin tài khoản</td>
+                            </tr>
+                            <tr>
+                                <td><span class="method get">GET</span></td>
+                                <td><code>/api/students/profile</code></td>
+                                <td>Student</td>
+                                <td>Lấy hồ sơ cá nhân và kết quả học tập của sinh viên đăng nhập</td>
+                            </tr>
+                            <tr>
+                                <td><span class="method post">POST</span></td>
+                                <td><code>/api/students/enroll</code></td>
+                                <td>Student</td>
+                                <td>Thực hiện đăng ký lớp học phần trong kỳ học hiện tại</td>
+                            </tr>
+                            <tr>
+                                <td><span class="method get">GET</span></td>
+                                <td><code>/api/teachers/classes</code></td>
+                                <td>Teacher</td>
+                                <td>Lấy danh sách các lớp học phần được phân công giảng dạy</td>
+                            </tr>
+                            <tr>
+                                <td><span class="method put">PUT</span></td>
+                                <td><code>/api/teachers/grades</code></td>
+                                <td>Teacher</td>
+                                <td>Nhập hoặc cập nhật điểm số cho lớp học phần được chỉ định</td>
+                            </tr>
+                            <tr>
+                                <td><span class="method post">POST</span></td>
+                                <td><code>/api/staffs/classes</code></td>
+                                <td>Staff</td>
+                                <td>Phòng giáo vụ mở lớp học phần mới trong kế hoạch đào tạo</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 8: Frontend UI Mockups -->
+    <section id="frontend" class="section-padding section-alt">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="subtitle">SECTION 08</span>
+                <h2 class="title">Giao Diện Hệ Thống (Frontend Showcase)</h2>
+                <div class="title-underline"></div>
+            </div>
+
+            <!-- Frontend Layout Showcase Grid -->
+            <div class="mockup-grid">
+                <!-- Mockup 1: Login Screen -->
+                <div class="glass-card mockup-card fade-in">
+                    <div class="mockup-preview">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80" alt="Login screen background design" loading="lazy">
+                        <div class="mockup-overlay">
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                            <span>Login Portal</span>
+                        </div>
+                    </div>
+                    <div class="mockup-info">
+                        <h4>Màn Hình Đăng Nhập</h4>
+                        <p>Thiết kế tinh gọn, sử dụng nền mờ Glassmorphism, xác thực và lưu JWT Token vào LocalStorage.</p>
+                    </div>
+                </div>
+
+                <!-- Mockup 2: Student Dashboard -->
+                <div class="glass-card mockup-card fade-in">
+                    <div class="mockup-preview">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Student Dashboard Analytics screen" loading="lazy">
+                        <div class="mockup-overlay">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <span>Student Dashboard</span>
+                        </div>
+                    </div>
+                    <div class="mockup-info">
+                        <h4>Dashboard Sinh Viên</h4>
+                        <p>Trực quan hóa thời khóa biểu tuần, theo dõi điểm rèn luyện, đăng ký môn học và xem điểm trung bình GPA.</p>
+                    </div>
+                </div>
+
+                <!-- Mockup 3: Teacher Dashboard -->
+                <div class="glass-card mockup-card fade-in">
+                    <div class="mockup-preview">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Teacher management workspace dashboard" loading="lazy">
+                        <div class="mockup-overlay">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                            <span>Teacher Space</span>
+                        </div>
+                    </div>
+                    <div class="mockup-info">
+                        <h4>Dashboard Giảng Viên</h4>
+                        <p>Giao diện thống kê danh sách lớp giảng dạy, điểm danh thông minh qua mã QR, và biểu mẫu nhập điểm trực quan.</p>
+                    </div>
+                </div>
+
+                <!-- Mockup 4: Admin & Staff Dashboard -->
+                <div class="glass-card mockup-card fade-in">
+                    <div class="mockup-preview">
+                        <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=600&q=80" alt="Admin settings dashboard stats screen" loading="lazy">
+                        <div class="mockup-overlay">
+                            <i class="fa-solid fa-user-gear"></i>
+                            <span>Admin Center</span>
+                        </div>
+                    </div>
+                    <div class="mockup-info">
+                        <h4>Dashboard Admin & Giáo Vụ</h4>
+                        <p>Quản lý tài khoản người dùng, import/export dữ liệu hàng loạt qua Excel, thiết lập thời khóa biểu toàn trường.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 9: Quy trình Scrum -->
+    <section id="scrum" class="section-padding">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="subtitle">SECTION 09</span>
+                <h2 class="title">Quy Trình Scrum Phát Triển Dự Án</h2>
+                <div class="title-underline"></div>
+            </div>
+
+            <!-- Scrum Progress Metrics -->
+            <div class="scrum-metrics-grid">
+                <div class="glass-card metric-box fade-in">
+                    <div class="metric-num">100</div>
+                    <div class="metric-title">Product Backlog Stories</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 100%"></div>
+                    </div>
+                    <p class="metric-desc">Yêu cầu nghiệp vụ chi tiết được đặc tả dưới dạng User Story.</p>
+                </div>
+                <div class="glass-card metric-box fade-in">
+                    <div class="metric-num">15</div>
+                    <div class="metric-title">Modules / Tính Năng Chính</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 100%"></div>
+                    </div>
+                    <p class="metric-desc">Hệ thống phân rã thành 15 phân hệ lớn hoạt động độc lập.</p>
+                </div>
+                <div class="glass-card metric-box fade-in">
+                    <div class="metric-num">141</div>
+                    <div class="metric-title">Sprint Tasks Đã Hoàn Thành</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 100%"></div>
+                    </div>
+                    <p class="metric-desc">Được phân chia và hoàn tất qua các giai đoạn chạy Sprint.</p>
+                </div>
+                <div class="glass-card metric-box fade-in">
+                    <div class="metric-num">3</div>
+                    <div class="metric-title">Sprints Nghiệm Thu</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 100%"></div>
+                    </div>
+                    <p class="metric-desc">Mỗi Sprint kéo dài 2 tuần với mục tiêu gia tăng sản phẩm rõ ràng.</p>
+                </div>
+            </div>
+
+            <!-- Scrum Infographic Timeline -->
+            <div class="scrum-timeline fade-in">
+                <div class="timeline-step">
+                    <div class="step-marker">1</div>
+                    <div class="step-content glass-card">
+                        <h4>Sprint 1: Phân tích & Hạ tầng (Backend Core)</h4>
+                        <p class="timeline-date"><i class="fa-solid fa-clock"></i> Tuần 1 - Tuần 2</p>
+                        <p>Xây dựng kiến trúc Clean Architecture, kết nối EF Core với SQL Server. Đặc tả 39 Endpoints API. Triển khai cấu trúc Database chính và cơ chế bảo mật xác thực JWT token.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-step">
+                    <div class="step-marker">2</div>
+                    <div class="step-content glass-card">
+                        <h4>Sprint 2: Hiện thực hóa Nghiệp vụ (Use Cases)</h4>
+                        <p class="timeline-date"><i class="fa-solid fa-clock"></i> Tuần 3 - Tuần 4</p>
+                        <p>Phát triển các Service xử lý đăng ký học phần, thuật toán xếp lịch chống trùng phòng, điểm danh chuyên cần và thiết lập API tính điểm GPA cho sinh viên.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-step">
+                    <div class="step-marker">3</div>
+                    <div class="step-content glass-card">
+                        <h4>Sprint 3: Tích hợp Frontend & Kiểm thử hệ thống</h4>
+                        <p class="timeline-date"><i class="fa-solid fa-clock"></i> Tuần 5 - Tuần 6</p>
+                        <p>Xây dựng giao diện Vue 3, kết nối API qua Axios, xử lý lưu trữ Token bảo mật. Thực hiện viết Unit Test toàn bộ lõi nghiệp vụ và triển khai Demo hệ thống.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 10: Thống kê hiệu suất (Counters) -->
+    <section id="statistics" class="section-padding section-alt">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="subtitle">SECTION 10</span>
+                <h2 class="title">Thống Kê Dự Án (Project Stats)</h2>
+                <div class="title-underline"></div>
+            </div>
+
+            <div class="counters-grid">
+                <div class="glass-card counter-card fade-in">
+                    <i class="fa-solid fa-cube"></i>
+                    <h3 class="counter-number" data-target="8">0</h3>
+                    <p>Entities Domain</p>
+                </div>
+                <div class="glass-card counter-card fade-in">
+                    <i class="fa-solid fa-bezier-curve"></i>
+                    <h3 class="counter-number" data-target="39">0</h3>
+                    <p>Use Cases Phân Tích</p>
+                </div>
+                <div class="glass-card counter-card fade-in">
+                    <i class="fa-solid fa-link"></i>
+                    <h3 class="counter-number" data-target="39">0</h3>
+                    <p>Endpoints API RESTful</p>
+                </div>
+                <div class="glass-card counter-card fade-in">
+                    <i class="fa-solid fa-database"></i>
+                    <h3 class="counter-number" data-target="4">0</h3>
+                    <p>Database Migrations</p>
+                </div>
+                <div class="glass-card counter-card fade-in">
+                    <i class="fa-solid fa-desktop"></i>
+                    <h3 class="counter-number" data-target="13">0</h3>
+                    <p>Giao Diện Màn Hình</p>
+                </div>
+                <div class="glass-card counter-card fade-in">
+                    <i class="fa-solid fa-list-check"></i>
+                    <h3 class="counter-number" data-target="100">0</h3>
+                    <p>Product Backlog Stories</p>
+                </div>
+                <div class="glass-card counter-card fade-in">
+                    <i class="fa-solid fa-tasks"></i>
+                    <h3 class="counter-number" data-target="141">0</h3>
+                    <p>Tasks Scrum Hoàn Thành</p>
+                </div>
+                <div class="glass-card counter-card fade-in">
+                    <i class="fa-solid fa-box-archive"></i>
+                    <h3 class="counter-number" data-target="15">0</h3>
+                    <p>Phân Hệ Modules</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 11: Đánh giá dự án (Evaluation) -->
+    <section id="evaluation" class="section-padding">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="subtitle">SECTION 11</span>
+                <h2 class="title">Đánh Giá Kết Quả Thực Hiện</h2>
+                <div class="title-underline"></div>
+            </div>
+
+            <div class="evaluation-container fade-in">
+                <p class="eval-intro-text">Hệ thống UMS đã hoàn thiện toàn bộ phần khung nghiệp vụ cơ bản phục vụ đào tạo tín chỉ, dưới đây là bảng đối chiếu chi tiết giữa hạng mục đã triển khai và các kế hoạch mở rộng trong tương lai.</p>
+                
+                <div class="glass-card evaluation-table-card">
+                    <table class="evaluation-table">
+                        <thead>
+                            <tr>
+                                <th>Hạng Mục Nghiệp Vụ</th>
+                                <th>Tính Năng Đã Triển Khai (Done)</th>
+                                <th>Tính Năng Chưa Triển Khai / Tương Lai (Todo)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>1. Quản lý hệ thống & Xác thực</strong></td>
+                                <td><span class="status-badge status-done"><i class="fa-solid fa-circle-check"></i> Quản lý tài khoản (Đăng nhập, Đổi mật khẩu)</span></td>
+                                <td><span class="status-badge status-todo"><i class="fa-solid fa-circle-xmark"></i> Xác thực 2 lớp (MFA via OTP/Email)</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>2. Quản lý người dùng</strong></td>
+                                <td><span class="status-badge status-done"><i class="fa-solid fa-circle-check"></i> Phân quyền chi tiết Admin/Staff/Teacher/Student</span></td>
+                                <td><span class="status-badge status-todo"><i class="fa-solid fa-circle-xmark"></i> Quản lý Câu lạc bộ / Hoạt động ngoại khóa</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>3. Quản lý Lớp học & Đăng ký</strong></td>
+                                <td><span class="status-badge status-done"><i class="fa-solid fa-circle-check"></i> Đăng ký lớp học phần trực tuyến, tự động kiểm tra trùng lịch</span></td>
+                                <td><span class="status-badge status-todo"><i class="fa-solid fa-circle-xmark"></i> Quản lý Học phí và tích hợp Cổng thanh toán VnPay</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>4. Lịch học & Khóa học</strong></td>
+                                <td><span class="status-badge status-done"><i class="fa-solid fa-circle-check"></i> Quản lý danh mục môn học, xếp lịch học, lịch dạy của giảng viên</span></td>
+                                <td><span class="status-badge status-todo"><i class="fa-solid fa-circle-xmark"></i> Tự động xếp phòng học thông minh tránh xung đột tài nguyên</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>5. Quản lý Điểm & Chuyên cần</strong></td>
+                                <td><span class="status-badge status-done"><i class="fa-solid fa-circle-check"></i> Điểm danh lớp học, giảng viên nhập điểm số, tự tính toán GPA</span></td>
+                                <td><span class="status-badge status-todo"><i class="fa-solid fa-circle-xmark"></i> Phúc khảo điểm trực tuyến, thông báo tự động</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>6. Tương tác & Thông tin</strong></td>
+                                <td><span class="status-badge status-done"><i class="fa-solid fa-circle-check"></i> Xem bảng tin chung, tải tài liệu bài giảng</span></td>
+                                <td><span class="status-badge status-todo"><i class="fa-solid fa-circle-xmark"></i> Gửi thông báo đẩy (Push Notification) qua App điện thoại</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 12: Kết luận (Conclusion) -->
+    <section id="conclusion" class="section-padding section-alt">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="subtitle">SECTION 12</span>
+                <h2 class="title">Kết Luận Đề Tài</h2>
+                <div class="title-underline"></div>
+            </div>
+
+            <!-- Conclusion Glass Card Banner -->
+            <div class="conclusion-wrapper fade-in">
+                <div class="glass-card conclusion-card">
+                    <div class="conclusion-icon">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h3>Tóm Tắt Đồ Án UMS</h3>
+                    <p class="conclusion-lead">Dự án "Phân tích hệ thống quản lý học vụ UMS" đã thực hiện thành công mục tiêu số hóa quy trình quản lý học tập. Với nền tảng kiến trúc vững chắc và công nghệ hiện đại, hệ thống sẵn sàng đáp ứng nhu cầu vận hành thực tế.</p>
+                    
+                    <div class="conclusion-bullets-grid">
+                        <div class="bullet-item">
+                            <i class="fa-solid fa-square-check"></i>
+                            <div>
+                                <strong>Kiến trúc chuẩn hóa:</strong> Áp dụng Clean Architecture giúp tách biệt hoàn toàn các tầng logic nghiệp vụ, dễ kiểm thử và nâng cấp.
+                            </div>
+                        </div>
+                        <div class="bullet-item">
+                            <i class="fa-solid fa-square-check"></i>
+                            <div>
+                                <strong>Bảo mật tối đa:</strong> Sử dụng Token JWT kết hợp cơ chế kiểm soát Authorization đa vai trò, mã hóa mật khẩu ở database.
+                            </div>
+                        </div>
+                        <div class="bullet-item">
+                            <i class="fa-solid fa-square-check"></i>
+                            <div>
+                                <strong>Tích hợp Front-Back mượt mà:</strong> Trải nghiệm người dùng SPA mượt mà trên Vue 3 phối hợp với RESTful APIs của ASP.NET Core.
+                            </div>
+                        </div>
+                        <div class="bullet-item">
+                            <i class="fa-solid fa-square-check"></i>
+                            <div>
+                                <strong>Quy trình chuyên nghiệp:</strong> Quản lý tiến độ bằng Scrum, xây dựng sơ đồ ERD tối ưu hóa hiệu suất truy vấn dữ liệu học vụ.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="conclusion-quote">
+                        <p>"Hệ thống UMS là nền tảng vững chắc hướng tới xây dựng đại học số thông minh, tối ưu hóa nguồn lực và mang lại trải nghiệm giáo dục tốt nhất."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-container">
+            <div class="footer-left">
+                <a href="#" class="footer-logo">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>UMS<span class="highlight">.Edu</span></span>
+                </a>
+                <p>Hệ thống Quản lý Học vụ Đại học - University Management System. Đồ án nghiên cứu phân tích hệ thống và thiết kế giải pháp công nghệ năm 2025.</p>
+            </div>
+            <div class="footer-center">
+                <h4>Nhóm Thực Hiện</h4>
+                <ul class="team-list">
+                    <li><i class="fa-solid fa-user-pen"></i> Nguyễn Văn Thiết Kế (UI/UX)</li>
+                    <li><i class="fa-solid fa-code"></i> Lê Backend Developer</li>
+                    <li><i class="fa-solid fa-laptop-code"></i> Trần Frontend Developer</li>
+                </ul>
+            </div>
+            <div class="footer-right">
+                <h4>Công nghệ sử dụng</h4>
+                <div class="footer-tech-icons">
+                    <i class="fa-brands fa-microsoft" title="ASP.NET Core / .NET 8"></i>
+                    <i class="fa-brands fa-vuejs" title="Vue 3"></i>
+                    <i class="fa-solid fa-database" title="SQL Server"></i>
+                    <i class="fa-brands fa-html5" title="HTML5"></i>
+                    <i class="fa-brands fa-css3-alt" title="CSS3"></i>
+                    <i class="fa-brands fa-js" title="Javascript"></i>
+                </div>
+                <p class="copyright">&copy; 2025 UMS Project. Made with <i class="fa-solid fa-heart" style="color: #ef4444;"></i> in Vietnam.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Script File -->
+    <script src="script.js"></script>
+</body>
+</html>
